@@ -1,5 +1,11 @@
-export const metadata = { title: "Verify Certificate" };
+import VerifyCertificate from "@/components/verify/VerifyCertificate";
+
+export const metadata = {
+  title: "Verify Certificate | VTech Institute",
+  description:
+    "Verify certificates issued by VTech Institute of Information Technology.",
+};
 
 export default function VerifyCertificatePage() {
-  return <section><h1>Verify Certificate</h1><p>Certificate verification placeholder.</p></section>;
+  return <VerifyCertificate />;
 }

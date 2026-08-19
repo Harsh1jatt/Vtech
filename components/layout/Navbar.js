@@ -102,7 +102,7 @@ export default function Navbar() {
 >
   <div className={styles.logoIconWrap}>
     <Image
-      src="/logo.png"
+      src="/images/logo.png"
       alt=""
       width={42}
       height={42}

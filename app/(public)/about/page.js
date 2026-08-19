@@ -1,5 +1,11 @@
-export const metadata = { title: "About" };
+import AboutPage from "@/components/about/AboutPage";
 
-export default function AboutPage() {
-  return <section><h1>About VTech Institute</h1><p>About page placeholder.</p></section>;
+export const metadata = {
+  title: "About VTech Institute of Information Technology | Ludhiana",
+  description:
+    "Learn about VTech Institute of Information Technology in Ludhiana, our practical learning approach, career-focused training and commitment to building real digital skills.",
+};
+
+export default function About() {
+  return <AboutPage />;
 }
