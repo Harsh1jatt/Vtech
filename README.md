@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VTech Institute
 
-## Getting Started
+Production website foundation for VTech Institute, built with Next.js 16 App Router and JavaScript.
 
-First, run the development server:
+## Architecture
+
+- `app/`: Root App Router. The `(public)` route group owns the public site and its layout; `admin` owns the protected administration area; `api` will contain thin Route Handlers.
+- `components/`: Reusable layout, UI, public-site, and admin components. Files currently contain minimal placeholders only.
+- `config/`: Centralized site settings and static course configuration.
+- `lib/`: Infrastructure boundaries for MongoDB, Cloudinary, authentication, and shared utilities.
+- `models/`: Mongoose model contracts for admins, students, certificates, and enquiries. Mongoose schemas are intentionally deferred until the database dependency is introduced.
+- `services/`: Business and data operation boundaries used by Route Handlers and server components.
+- `public/`: Static images, icons, and local development asset directories.
+- `proxy.js`: Reserved for server-side admin/API access protection, following the Next.js 16 convention.
+
+## Environment
+
+Copy `.env.example` to `.env.local` and provide real values locally. `.env.local` is ignored by Git; never expose server secrets through `NEXT_PUBLIC_*` variables.
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Roadmap
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Add Mongoose and implement a cached connection in `lib/db.js`.
+2. Convert model field contracts into schemas with validation, timestamps, and unique/indexed fields.
+3. Add secure admin authentication with hashed passwords, signed sessions, and middleware/API authorization.
+4. Implement service methods and protected student, certificate, and enquiry Route Handlers.
+5. Implement Cloudinary upload and certificate metadata persistence.
+6. Build public pages, certificate verification, enquiry submission, and admin workflows with focused client components.
+7. Add validation, authorization, error states, tests, and production SEO/social assets.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deliberate Decisions
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The project now uses a root-level `app/` directory because the requested project contract says `src` is not used. The generated `src/` scaffold was removed.
+- Next.js 16's `proxy.js` convention is used instead of the older `middleware.js` filename; the request interception boundary remains the same.
+- Public pages live in a route group, so `(public)` does not appear in URLs while still providing a separate public layout.
+- No new dependencies were installed. Mongoose, Cloudinary, and authentication libraries should be selected and added when their implementation task begins.
+- Model files currently export framework-neutral field contracts instead of importing Mongoose, keeping this architecture stage buildable without database packages.
+- API placeholders return `501 Not Implemented`; they are structural markers, not production endpoints.

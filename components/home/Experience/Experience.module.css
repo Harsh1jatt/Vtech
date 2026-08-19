@@ -1,0 +1,127 @@
+.experience {
+  padding: var(--section-padding) 0;
+}
+
+.wrap {
+  width: min(var(--container-width), calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.sectionHead {
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.sectionHead h2 {
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+  margin-top: 14px;
+  line-height: 1.12;
+}
+
+.sectionHead p {
+  color: var(--color-muted-foreground);
+  margin-top: 14px;
+  font-size: 1.02rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.card {
+  border-radius: var(--radius-md);
+  padding: 34px 28px;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.card h3 {
+  font-size: 1.3rem;
+}
+
+.card p {
+  color: var(--color-muted-foreground);
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.c1 {
+  background: var(--color-surface-soft);
+}
+
+.c1 .icon {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.c2 {
+  background: var(--color-foreground);
+  color: var(--color-background);
+  margin-top: 30px;
+  box-shadow: var(--shadow-md);
+}
+
+.c2 p {
+  color: #c9c3be;
+}
+
+.c2 .icon {
+  background: var(--color-primary-light);
+  color: var(--color-foreground);
+}
+
+.c3 {
+  background: var(--color-accent-light);
+}
+
+.c3 .icon {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .c2 {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .experience {
+    padding: var(--section-padding-mobile) 0;
+  }
+  .wrap {
+    width: calc(100% - 32px);
+  }
+}

@@ -1,0 +1,114 @@
+.cta {
+  padding: 0 0 var(--section-padding);
+}
+
+.wrap {
+  width: min(var(--container-width), calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.box {
+  background: var(--color-surface-soft);
+  border-radius: var(--radius-lg);
+  padding: 70px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, rgba(22, 163, 74, 0.14), transparent 70%);
+  top: -100px;
+  right: -80px;
+}
+
+.box h2 {
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+  max-width: 640px;
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.box p {
+  color: var(--color-muted-foreground);
+  margin-top: 16px;
+  max-width: 480px;
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 32px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 25px;
+  border-radius: var(--radius-full);
+  font-size: 0.94rem;
+  font-weight: 650;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
+    background 0.25s var(--ease), border-color 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+
+.primary {
+  color: var(--color-white);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  box-shadow: 0 10px 24px rgba(21, 128, 61, 0.22);
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(21, 128, 61, 0.3);
+}
+
+.ghost {
+  color: var(--color-foreground);
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+}
+
+.ghost:hover {
+  transform: translateY(-2px);
+  color: var(--color-primary);
+  border-color: #b9ddc4;
+}
+
+@media (max-width: 700px) {
+  .cta {
+    padding-bottom: var(--section-padding-mobile);
+  }
+  .wrap {
+    width: calc(100% - 32px);
+  }
+  .box {
+    padding: 48px 28px;
+  }
+}

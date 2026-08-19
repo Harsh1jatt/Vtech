@@ -1,0 +1,152 @@
+:root {
+  /* ============ CANONICAL BRAND COLORS (edit ONLY here) ============ */
+  --color-primary: #15803d;
+  --color-primary-dark: #166534;
+  --color-primary-deep: #14532d;
+  --color-primary-light: #22c55e;
+
+  --color-accent: #16a34a;
+  --color-accent-dark: #0f6330;
+  --color-accent-light: #e3f4e9;
+
+  --color-success: #16a34a;
+
+  --color-background: #f6faf7;
+  --color-surface: #ffffff;
+  --color-surface-muted: #eef7f1;
+  --color-surface-soft: #f0fdf4;
+  --color-surface-soft-2: #ecfdf3;
+
+  --color-foreground: #14221a;
+  --color-muted-foreground: #607067;
+
+  --color-border: #dce8e0;
+  --color-white: #ffffff;
+
+  /* ============ Legacy aliases (kept so nothing else silently breaks) ============ */
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --muted-foreground: var(--color-muted-foreground);
+  --surface: var(--color-surface);
+  --surface-muted: var(--color-surface-muted);
+  --border: var(--color-border);
+  --accent: var(--color-accent);
+  --accent-dark: var(--color-accent-dark);
+  --accent-light: var(--color-accent-light);
+  --success: var(--color-success);
+  --white: var(--color-white);
+
+  /* ============ Typography ============ */
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
+
+  /* ============ Radius ============ */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-full: 999px;
+
+  /* ============ Shadows ============ */
+  --shadow-sm: 0 2px 10px rgba(20, 34, 26, 0.06);
+  --shadow-md: 0 10px 30px rgba(20, 83, 45, 0.1);
+  --shadow-lg: 0 18px 45px rgba(20, 83, 45, 0.12);
+
+  /* ============ Motion ============ */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.25s var(--ease);
+
+  /* ============ Layout ============ */
+  --container-width: 1240px;
+  --section-padding: 110px;
+  --section-padding-mobile: 64px;
+}
+
+/* ============ RESET ============ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100%;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-foreground);
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* ============ SHARED REVEAL-ON-SCROLL SYSTEM ============ */
+/* Used by every section via the <Reveal> component. Change the
+   feel of ALL entrance animations site-wide by editing only this. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
