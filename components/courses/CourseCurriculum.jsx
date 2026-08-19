@@ -1,73 +1,71 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./CourseDetails.module.css";
 
 export default function CourseCurriculum({ course }) {
   const [openMonth, setOpenMonth] = useState(1);
 
   return (
-    <section className="border-t border-gray-200 pt-10">
+    <section className={styles.dividerSection}>
       <div>
-        <p className="text-sm font-semibold uppercase tracking-wider text-gray-500">
-          Course Curriculum
-        </p>
+        <p className={styles.sectionLabel}>Course Curriculum</p>
 
-        <h2 className="mt-2 text-2xl font-bold tracking-tight text-gray-950 sm:text-3xl">
-          12-Month Detailed Syllabus
+        <h2 className={styles.sectionTitle}>
+          {course.duration} detailed syllabus
         </h2>
 
-        <p className="mt-3 text-sm leading-6 text-gray-600">
+        <p className={styles.sectionDescription}>
           Explore the complete course curriculum month by month.
         </p>
       </div>
 
-      <div className="mt-8 divide-y divide-gray-200 overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      <div className={styles.curriculumList}>
         {course.curriculum?.map((month) => {
           const isOpen = openMonth === month.month;
 
           return (
-            <div key={month.month}>
+            <div className={styles.curriculumItem} key={month.month}>
               <button
                 type="button"
                 onClick={() =>
                   setOpenMonth(isOpen ? null : month.month)
                 }
-                className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left transition hover:bg-gray-50 sm:px-6"
+                className={styles.curriculumButton}
+                aria-expanded={isOpen}
               >
-                <div className="flex items-center gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-sm font-bold text-gray-900">
+                <div className={styles.curriculumHeading}>
+                  <span className={styles.monthNumber}>
                     {String(month.month).padStart(2, "0")}
                   </span>
 
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
+                    <p className={styles.monthLabel}>
                       Month {month.month}
                     </p>
 
-                    <h3 className="mt-1 font-semibold text-gray-950">
+                    <h3 className={styles.monthTitle}>
                       {month.title}
                     </h3>
                   </div>
                 </div>
 
                 <span
-                  className={`text-xl text-gray-500 transition-transform ${
-                    isOpen ? "rotate-180" : ""
+                  className={`${styles.chevron} ${
+                    isOpen ? styles.chevronOpen : ""
                   }`}
+                  aria-hidden="true"
                 >
                   ↓
                 </span>
               </button>
 
               {isOpen && (
-                <div className="border-t border-gray-100 bg-gray-50 px-5 py-5 sm:px-6">
-                  <ul className="grid gap-3 sm:grid-cols-2">
+                <div className={styles.topics}>
+                  <ul className={styles.topicList}>
                     {month.topics?.map((topic, index) => (
-                      <li
-                        key={topic}
-                        className="flex gap-3 text-sm leading-6 text-gray-700"
-                      >
-                        <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white text-xs font-medium text-gray-500 ring-1 ring-gray-200">
+                      <li className={styles.topic} key={topic}>
+                        <span className={styles.topicNumber}>
                           {index + 1}
                         </span>
 

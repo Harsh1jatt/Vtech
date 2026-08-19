@@ -1,3 +1,23 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.contentSection {
+  width: min(100% - 40px, var(--container-width));
+  margin: 0 auto;
+  padding: 86px 0 110px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  align-items: start;
+  gap: 64px;
+  min-width: 0;
+}
+
 .details {
   min-width: 0;
   display: flex;
@@ -5,8 +25,336 @@
   gap: 72px;
 }
 
+.dividerSection {
+  min-width: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+}
+
+.sectionLabel {
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  margin-top: 10px;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 1.12;
+}
+
+.sectionDescription {
+  max-width: 620px;
+  margin-top: 12px;
+  color: var(--color-muted-foreground);
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.curriculumList {
+  margin-top: 30px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.curriculumItem + .curriculumItem {
+  border-top: 1px solid var(--color-border);
+}
+
+.curriculumButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 18px;
+  padding: 18px 20px;
+  border: 0;
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  text-align: left;
+  transition: background var(--transition-base);
+}
+
+.curriculumButton:hover {
+  background: var(--color-surface-soft);
+}
+
+.curriculumButton:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+.curriculumHeading {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 14px;
+}
+
+.monthNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 12px;
+  background: var(--color-surface-soft);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.monthLabel {
+  color: var(--color-muted-foreground);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.monthTitle {
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+.chevron {
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  transition: transform var(--transition-base);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.topics {
+  padding: 20px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-muted);
+}
+
+.topicList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+  list-style: none;
+}
+
+.topic {
+  display: flex;
+  min-width: 0;
+  gap: 10px;
+  color: var(--color-muted-foreground);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.topicNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  margin-top: 1px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.project {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+}
+
+.project:hover {
+  border-color: rgba(21, 128, 61, 0.28);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.projectLabel {
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.projectTitle {
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.sidebar {
+  position: sticky;
+  top: 96px;
+  min-width: 0;
+}
+
+.sidebarCard {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.sidebarMedia {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-surface-muted);
+}
+
+.sidebarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebarPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-muted-foreground);
+  font-size: 0.8rem;
+}
+
+.sidebarBody {
+  padding: 24px;
+}
+
+.sidebarMeta {
+  color: var(--color-muted-foreground);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sidebarValue {
+  margin-top: 5px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.sidebarDivider {
+  margin: 22px 0;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.sidebarFee {
+  margin-top: 5px;
+  color: var(--color-primary-dark);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.sidebarCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  margin-top: 24px;
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: center;
+  transition:
+    background var(--transition-base),
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.sidebarCta:hover {
+  background: var(--color-primary-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.sidebarNote {
+  margin-top: 13px;
+  color: var(--color-muted-foreground);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .details {
     gap: 52px;
+  }
+
+  .contentSection {
+    width: min(100% - 28px, var(--container-width));
+    padding: 64px 0;
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 52px;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .topicList,
+  .projects {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .curriculumButton,
+  .topics,
+  .sidebarBody {
+    padding: 16px;
+  }
+
+  .curriculumHeading {
+    gap: 10px;
+  }
+
+  .monthNumber {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
   }
 }

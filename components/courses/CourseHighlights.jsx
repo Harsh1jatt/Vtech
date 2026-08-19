@@ -6,7 +6,7 @@ export default function CourseHighlights({ course }) {
       <div className={styles.heading}>
         <div>
           <span>01</span>
-          <h2>What you'll learn</h2>
+          <h2>What you&apos;ll learn</h2>
         </div>
 
         <p>

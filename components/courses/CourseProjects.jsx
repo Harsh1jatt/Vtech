@@ -1,4 +1,6 @@
-const projects = [
+import styles from "./CourseDetails.module.css";
+
+const fallbackProjects = [
   "MS Word practical",
   "MS Excel practical",
   "PowerPoint presentation",
@@ -9,32 +11,30 @@ const projects = [
 ];
 
 export default function CourseProjects({ course }) {
-  return (
-    <section className="border-t border-gray-200 pt-10">
-      <p className="text-sm font-semibold uppercase tracking-wider text-gray-500">
-        Practical Learning
-      </p>
+  const projects =
+    course.projects?.length > 0 ? course.projects : fallbackProjects;
 
-      <h2 className="mt-2 text-2xl font-bold tracking-tight text-gray-950 sm:text-3xl">
+  return (
+    <section className={styles.dividerSection}>
+      <p className={styles.sectionLabel}>Practical Learning</p>
+
+      <h2 className={styles.sectionTitle}>
         Projects & Practical Work
       </h2>
 
-      <p className="mt-3 max-w-2xl text-base leading-7 text-gray-600">
+      <p className={styles.sectionDescription}>
         Apply what you learn through practical assignments and real-world
         projects throughout the course.
       </p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <div className={styles.projects}>
         {projects.map((project, index) => (
-          <div
-            key={project}
-            className="rounded-xl border border-gray-200 bg-white p-5"
-          >
-            <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+          <div className={styles.project} key={project}>
+            <span className={styles.projectLabel}>
               Project {String(index + 1).padStart(2, "0")}
             </span>
 
-            <h3 className="mt-2 font-semibold text-gray-900">
+            <h3 className={styles.projectTitle}>
               {project}
             </h3>
           </div>

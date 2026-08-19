@@ -7,6 +7,7 @@ import {
   CourseDetails,
   CourseSidebar,
 } from "@/components/courses";
+import styles from "@/components/courses/CourseDetails.module.css";
 
 export default async function CoursePage({ params }) {
   const { slug } = await params;
@@ -18,11 +19,11 @@ export default async function CoursePage({ params }) {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className={styles.page}>
       <CourseHeader course={course} />
 
-      <section className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16">
+      <section className={styles.contentSection}>
+        <div className={styles.layout}>
           <CourseDetails course={course} />
 
           <CourseSidebar course={course} />
