@@ -72,15 +72,15 @@ export default function Footer() {
             <ul style={styles.linkList}>
               <li style={styles.contactItem}>
                 <span style={styles.contactLabel}>Address</span>
-                <span style={styles.contactVal}>Main Market, Ludhiana, Punjab</span>
+                <span style={styles.contactVal}>#1326, Prem Vihar, Main Road, Subhash Nagar, ludhiana</span>
               </li>
               <li style={styles.contactItem}>
                 <span style={styles.contactLabel}>Phone</span>
-                <a href="tel:+916280009096" style={styles.contactLink}>+91 62800 09096</a>
+                <a href="tel:+919855260786" style={styles.contactLink}>+91 98552 60786</a>
               </li>
               <li style={styles.contactItem}>
                 <span style={styles.contactLabel}>Email</span>
-                <a href="mailto:info@vtechinstitute.in" style={styles.contactLink}>info@vtechinstitute.in</a>
+                <a href="mailto:Vtech4186@gmail.com" style={styles.contactLink}>Vtech4186@gmail.com</a>
               </li>
             </ul>
           </div>

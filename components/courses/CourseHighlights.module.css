@@ -1,0 +1,126 @@
+.section {
+  padding-top: 8px;
+}
+
+.heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 28px;
+}
+
+.heading > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.heading > div > span {
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.heading h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.heading p {
+  max-width: 330px;
+  color: var(--color-muted-foreground);
+  font-size: 0.9rem;
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 88px;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(21, 128, 61, 0.25);
+  box-shadow: var(--shadow-sm);
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 12px;
+  background: var(--color-surface-soft);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.item h3 {
+  font-size: 0.95rem;
+}
+
+.item span {
+  display: block;
+  margin-top: 3px;
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+}
+
+.skills {
+  margin-top: 36px;
+}
+
+.skills h3 {
+  font-size: 1rem;
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.skillList span {
+  padding: 9px 13px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-muted);
+  color: var(--color-foreground);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .heading {
+    display: block;
+  }
+
+  .heading p {
+    margin-top: 12px;
+  }
+
+  .highlights {
+    grid-template-columns: 1fr;
+  }
+}

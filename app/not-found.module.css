@@ -1,0 +1,524 @@
+.page {
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(34, 197, 94, 0.1),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(21, 128, 61, 0.08),
+      transparent 30%
+    ),
+    var(--color-background);
+}
+
+.backgroundGlow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.08);
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.container {
+  width: min(100%, 920px);
+  position: relative;
+}
+
+/* =========================
+   MAIN CARD
+========================= */
+
+.card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(20px);
+}
+
+/* =========================
+   CODE WINDOW HEADER
+========================= */
+
+.codeTop {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px;
+  background: var(--color-surface-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  opacity: 0.7;
+}
+
+.dot:nth-child(2) {
+  background: var(--color-primary);
+}
+
+.dot:nth-child(3) {
+  background: var(--color-primary-dark);
+}
+
+.fileName {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-muted-foreground);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+  text-align: center;
+  padding: 55px 30px 60px;
+}
+
+/* =========================
+   404 NUMBER
+========================= */
+
+.errorNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+
+  font-family: var(--font-display);
+  font-size: clamp(90px, 15vw, 160px);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+
+  color: var(--color-primary-deep);
+}
+
+.zero {
+  width: clamp(85px, 13vw, 145px);
+  height: clamp(85px, 13vw, 145px);
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--color-primary-light),
+      var(--color-primary)
+    );
+
+  box-shadow:
+    0 15px 35px rgba(21, 128, 61, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5);
+
+  transform: rotate(-8deg);
+  animation: float 4s ease-in-out infinite;
+}
+
+.zeroInner {
+  width: 48%;
+  height: 48%;
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+  background: var(--color-background);
+
+  box-shadow: inset 0 3px 10px rgba(20, 34, 26, 0.08);
+}
+
+.zeroInner span {
+  font-family: var(--font-mono);
+  font-size: clamp(22px, 4vw, 38px);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  transform: rotate(8deg);
+}
+
+/* =========================
+   BADGE
+========================= */
+
+.badge {
+  width: fit-content;
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 7px 13px;
+
+  border: 1px solid rgba(21, 128, 61, 0.15);
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface-soft);
+
+  color: var(--color-primary-dark);
+
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.content h1 {
+  margin-bottom: 14px;
+
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.content h1 span {
+  color: var(--color-primary);
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.content p {
+  max-width: 520px;
+  margin: 0 auto;
+
+  color: var(--color-muted-foreground);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+.primaryButton,
+.secondaryButton {
+  min-height: 48px;
+  padding: 0 20px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border-radius: var(--radius-full);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    background var(--transition-base);
+}
+
+.primaryButton {
+  color: var(--color-white);
+  background: var(--color-primary);
+  box-shadow: 0 8px 20px rgba(21, 128, 61, 0.2);
+}
+
+.primaryButton:hover {
+  transform: translateY(-3px);
+  background: var(--color-primary-dark);
+  box-shadow: 0 12px 28px rgba(21, 128, 61, 0.25);
+}
+
+.primaryButton span {
+  font-size: 18px;
+  transition: transform var(--transition-base);
+}
+
+.primaryButton:hover span {
+  transform: translateX(-4px);
+}
+
+.secondaryButton {
+  color: var(--color-primary-dark);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.secondaryButton:hover {
+  transform: translateY(-3px);
+  border-color: rgba(21, 128, 61, 0.3);
+  background: var(--color-surface-soft);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.codeBottom {
+  min-height: 48px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px;
+
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-muted);
+
+  color: var(--color-muted-foreground);
+
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.codeBottom span:first-child {
+  color: var(--color-primary);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+/* =========================
+   FLOATING ERROR CARD
+========================= */
+
+.floatingCard {
+  position: absolute;
+  top: 105px;
+  right: -35px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 11px 14px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-md);
+
+  backdrop-filter: blur(12px);
+
+  animation: floatingCard 5s ease-in-out infinite;
+}
+
+.terminalIcon {
+  width: 30px;
+  height: 30px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  color: var(--color-white);
+  background: var(--color-primary);
+
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.floatingCard div {
+  display: flex;
+  flex-direction: column;
+}
+
+.floatingCard strong {
+  color: var(--color-foreground);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.floatingCard small {
+  color: var(--color-muted-foreground);
+  font-size: 9px;
+}
+
+/* =========================
+   DECORATIONS
+========================= */
+
+.decorOne,
+.decorTwo,
+.decorThree {
+  position: absolute;
+  z-index: -1;
+
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-weight: 700;
+
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.decorOne {
+  top: 30px;
+  left: -70px;
+  font-size: 70px;
+  transform: rotate(-12deg);
+}
+
+.decorTwo {
+  bottom: 30px;
+  right: -75px;
+  font-size: 64px;
+  transform: rotate(10deg);
+}
+
+.decorThree {
+  top: 45%;
+  left: -100px;
+  font-size: 16px;
+  letter-spacing: 0.2em;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: rotate(-8deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(-4deg) translateY(-8px);
+  }
+}
+
+@keyframes floatingCard {
+  0%,
+  100% {
+    transform: translateY(0) rotate(2deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(0deg);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .floatingCard {
+    right: 15px;
+    top: -22px;
+  }
+
+  .decorOne {
+    left: -30px;
+  }
+
+  .decorTwo {
+    right: -30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 20px 14px;
+  }
+
+  .card {
+    border-radius: 22px;
+  }
+
+  .content {
+    padding: 45px 20px 48px;
+  }
+
+  .errorNumber {
+    margin-top: 15px;
+    margin-bottom: 25px;
+  }
+
+  .content h1 {
+    font-size: 31px;
+  }
+
+  .content p {
+    font-size: 14px;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .codeBottom {
+    padding: 0 15px;
+  }
+
+  .codeBottom span:last-child {
+    display: none;
+  }
+
+  .floatingCard {
+    display: none;
+  }
+
+  .decorOne,
+  .decorTwo,
+  .decorThree {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zero,
+  .floatingCard {
+    animation: none;
+  }
+}

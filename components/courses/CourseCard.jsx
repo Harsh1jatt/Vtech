@@ -1,0 +1,182 @@
+import Link from "next/link";
+import styles from "./CourseCard.module.css";
+
+export default function CourseCard({ course }) {
+  if (!course) return null;
+
+  const {
+    slug,
+    title,
+    shortTitle,
+    description,
+    shortDescription,
+    category,
+    level,
+    duration,
+    type,
+    thumbnail,
+    image,
+    featured,
+    highlights = [],
+    skills = [],
+  } = course;
+
+  const previewItems =
+    highlights.length > 0
+      ? highlights
+      : skills;
+
+  return (
+    <article className={styles.card}>
+      {/* ================= IMAGE ================= */}
+
+      <div className={styles.media}>
+        {(thumbnail || image) ? (
+          <img
+            src={thumbnail || image}
+            alt={title || "Course"}
+            className={styles.image}
+          />
+        ) : (
+          <div className={styles.imagePlaceholder}>
+            <span>{shortTitle?.slice(0, 2) || "CR"}</span>
+          </div>
+        )}
+
+        <div className={styles.overlay} />
+
+        {featured && (
+          <span className={styles.featured}>
+            <span className={styles.star}>★</span>
+            Featured
+          </span>
+        )}
+
+        {category && (
+          <span className={styles.category}>
+            {category}
+          </span>
+        )}
+      </div>
+
+      {/* ================= CONTENT ================= */}
+
+      <div className={styles.content}>
+        <div className={styles.heading}>
+          {shortTitle && (
+            <span className={styles.shortTitle}>
+              {shortTitle}
+            </span>
+          )}
+
+          <h3>{title}</h3>
+        </div>
+
+        <p className={styles.description}>
+          {shortDescription ||
+            description ||
+            "Develop practical skills through structured learning and hands-on projects."}
+        </p>
+
+        {/* ================= META ================= */}
+
+        <div className={styles.meta}>
+          {duration && (
+            <div className={styles.metaItem}>
+              <span className={styles.metaIcon}>
+                ◷
+              </span>
+
+              <div>
+                <small>Duration</small>
+                <strong>{duration}</strong>
+              </div>
+            </div>
+          )}
+
+          {level && (
+            <div className={styles.metaItem}>
+              <span className={styles.metaIcon}>
+                ◈
+              </span>
+
+              <div>
+                <small>Level</small>
+                <strong>{level}</strong>
+              </div>
+            </div>
+          )}
+
+          {type && (
+            <div className={styles.metaItem}>
+              <span className={styles.metaIcon}>
+                ✓
+              </span>
+
+              <div>
+                <small>Type</small>
+                <strong>{type}</strong>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ================= SKILLS ================= */}
+
+        {previewItems.length > 0 && (
+          <div className={styles.skills}>
+            {previewItems
+              .slice(0, 3)
+              .map((item) => (
+                <span key={item}>
+                  {item}
+                </span>
+              ))}
+
+            {previewItems.length > 3 && (
+              <span className={styles.more}>
+                +{previewItems.length - 3}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* ================= FOOTER ================= */}
+
+        <div className={styles.footer}>
+          <span className={styles.learn}>
+            Explore course
+          </span>
+
+          {slug ? (
+            <Link
+              href={`/courses/${slug}`}
+              className={styles.button}
+              aria-label={`View ${title}`}
+            >
+              <span>View Course</span>
+
+              <span
+                className={styles.arrow}
+                aria-hidden="true"
+              >
+                →
+              </span>
+            </Link>
+          ) : (
+            <span className={styles.button}>
+              <span>View Course</span>
+
+              <span
+                className={styles.arrow}
+                aria-hidden="true"
+              >
+                →
+              </span>
+            </span>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+}

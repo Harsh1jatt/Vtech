@@ -1,7 +1,13 @@
 import { courses } from "@/config/courses";
 
-export const metadata = { title: "Courses" };
+import CoursesHero from "@/components/courses/CoursesHero";
+import CoursesCatalog from "@/components/courses/CoursesCatalog";
 
 export default function CoursesPage() {
-  return <section><h1>Courses</h1><p>{courses.length} course configuration placeholder.</p></section>;
+  return (
+    <main>
+      <CoursesHero />
+      <CoursesCatalog courses={courses} />
+    </main>
+  );
 }
