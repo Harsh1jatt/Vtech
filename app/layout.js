@@ -1,6 +1,5 @@
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -35,11 +34,7 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>
-        <Navbar />
-        <main>{children}</main>
-        {/* Keep your existing Footer import here if it lives elsewhere */}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

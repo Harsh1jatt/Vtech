@@ -1,16 +1,10 @@
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
 
 export default function PublicLayout({ children }) {
   return (
     <>
-      <Header />
-
-      <main>
-        {children}
-      </main>
-
-      <Footer />
+      <Navbar />
+      <main>{children}</main>
     </>
   );
 }

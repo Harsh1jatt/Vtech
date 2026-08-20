@@ -133,8 +133,7 @@ export default function Contact() {
               <div>
                 <div className={styles.label}>Address</div>
                 <div className={styles.value}>
-                  VTech Institute of Information Technology, Main Market,
-                  Ludhiana, Punjab
+                  #1326, Prem Vihar, Main Road, Subhash Nagar, Ludhiana
                 </div>
               </div>
             </div>
@@ -154,9 +153,9 @@ export default function Contact() {
                 <div className={styles.label}>Phone</div>
                 <a
                   className={styles.value}
-                  href="tel:+916280009096"
+                  href="tel:+919855260786"
                 >
-                  +91 62800 09096
+                  +91 98552 60786
                 </a>
               </div>
             </div>
@@ -185,9 +184,9 @@ export default function Contact() {
                 <div className={styles.label}>Email</div>
                 <a
                   className={styles.value}
-                  href="mailto:info@vtechinstitute.in"
+                  href="mailto:Vtech4186@gmail.com"
                 >
-                  info@vtechinstitute.in
+                  Vtech4186@gmail.com
                 </a>
               </div>
             </div>
