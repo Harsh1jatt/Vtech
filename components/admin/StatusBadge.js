@@ -1,7 +1,7 @@
 import styles from "./StatusBadge.module.css";
 
 const statusClasses = {
-  Active: "active", Completed: "completed", Inactive: "inactive", VALID: "valid", REVOKED: "revoked", New: "new", Contacted: "contacted", "In Progress": "progress", Converted: "converted", Closed: "closed",
+  Active: "active", Completed: "completed", Inactive: "inactive", VALID: "valid", REVOKED: "revoked", EXPIRED: "expired", New: "new", Contacted: "contacted", "In Progress": "progress", Converted: "converted", Closed: "closed",
 };
 
 export default function StatusBadge({ status }) {

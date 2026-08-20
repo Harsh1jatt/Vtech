@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BadgeCheck, BookOpen, LayoutDashboard, LogOut, MessageSquare, Settings, Users, X } from "lucide-react";
+import { BadgeCheck, BookOpen, LayoutDashboard, LogOut, Settings, Users, X } from "lucide-react";
 import styles from "./AdminSidebar.module.css";
 
 const primaryLinks = [
@@ -10,7 +10,6 @@ const primaryLinks = [
   { label: "Students", href: "/admin/students", icon: Users },
   { label: "Courses", href: "/admin/courses", icon: BookOpen },
   { label: "Certificates", href: "/admin/certificates", icon: BadgeCheck },
-  { label: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
 ];
 
 export default function AdminSidebar({ open, onClose }) {

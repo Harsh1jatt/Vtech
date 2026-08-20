@@ -17,6 +17,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
+import { openWhatsAppMessage } from "@/lib/whatsapp";
 
 import Reveal from "@/components/ui/Reveal/Reveal";
 import {
@@ -176,7 +177,7 @@ export default function Contact() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (!validate()) {
@@ -185,26 +186,8 @@ export default function Contact() {
     }
 
     setStatus("loading");
-
-    try {
-      const res = await fetch("/api/enquiries", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      if (!res.ok) {
-        throw new Error("Request failed");
-      }
-
-      setStatus("success");
-      setForm(initialState);
-      setErrors({});
-    } catch {
-      setStatus("error");
-    }
+    openWhatsAppMessage(`Hello VTech Institute,\n\nI would like to enquire about your courses.\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nCourse: ${form.course}\nMessage: ${form.message}\n\nPlease contact me regarding my enquiry.`);
+    window.setTimeout(() => setStatus("idle"), 1200);
   };
 
   return (
@@ -506,7 +489,7 @@ export default function Contact() {
               >
                 {status === "loading" ? (
                   <>
-                    Sending Enquiry
+                    Opening WhatsApp...
                     <span className={styles.spinner} />
                   </>
                 ) : (
@@ -517,25 +500,19 @@ export default function Contact() {
                 )}
               </button>
 
-              {status === "success" && (
+              {status === "loading" && (
                 <div className={styles.success} role="status">
                   <CheckCircle2 size={20} />
 
                   <div>
-                    <strong>Enquiry received.</strong>
+                    <strong>Opening WhatsApp to send your enquiry...</strong>
                     <span>
-                      Thanks — our team will get in touch with you shortly.
+                      Your message is ready to send.
                     </span>
                   </div>
                 </div>
               )}
 
-              {status === "error" && (
-                <div className={styles.errorBanner} role="alert">
-                  Something went wrong. Please try again or contact VTech
-                  directly.
-                </div>
-              )}
             </Reveal>
           </div>
         </div>

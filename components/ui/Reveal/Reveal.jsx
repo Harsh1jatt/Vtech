@@ -7,6 +7,7 @@ export default function Reveal({
   delay = 0,
   className = "",
   as: Tag = "div",
+  ...props
 }) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -39,6 +40,7 @@ export default function Reveal({
       ref={ref}
       className={`reveal ${inView ? "in" : ""} ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
+      {...props}
     >
       {children}
     </Tag>

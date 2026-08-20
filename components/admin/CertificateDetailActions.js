@@ -1,0 +1,7 @@
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Pencil, RotateCcw, ShieldOff, Trash2 } from "lucide-react";
+import CertificateActionModal from "./CertificateActionModal";
+import styles from "./Certificates.module.css";
+export default function CertificateDetailActions({ certificate }) { const router = useRouter(); const [action, setAction] = useState(null); const toggle = certificate.status === "VALID" ? "revoke" : certificate.status === "REVOKED" ? "restore" : null; return <><div className={styles.detailActions}><button type="button" className={styles.secondaryButton} onClick={() => router.push(`/admin/certificates/${certificate.id}/edit`)}><Pencil size={15} /> Edit</button>{toggle && <button type="button" className={styles.secondaryButton} onClick={() => setAction(toggle)}>{toggle === "revoke" ? <ShieldOff size={15} /> : <RotateCcw size={15} />} {toggle === "revoke" ? "Revoke" : "Restore"}</button>}<button type="button" className={styles.dangerButton} onClick={() => setAction("delete")}><Trash2 size={15} /> Delete</button></div><CertificateActionModal certificate={action ? certificate : null} action={action} onCancel={() => setAction(null)} onConfirm={() => router.push("/admin/certificates")} /></>; }

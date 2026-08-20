@@ -20,6 +20,10 @@ const navItems = [
     href: "/about",
   },
   {
+    label: "Internships",
+    href: "/internships",
+  },
+  {
     label: "Verify Certificate",
     href: "/verify-certificate",
   },

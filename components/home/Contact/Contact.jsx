@@ -4,6 +4,7 @@ import { useState } from "react";
 import Reveal from "@/components/ui/Reveal/Reveal";
 import styles from "./Contact.module.css";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { openWhatsAppMessage } from "@/lib/whatsapp";
 const courseOptions = [
   "Web Development",
   "DCA",
@@ -72,7 +73,7 @@ export default function Contact() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (!validate()) {
@@ -81,26 +82,8 @@ export default function Contact() {
     }
 
     setStatus("loading");
-
-    try {
-      const res = await fetch("/api/enquiries", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      if (!res.ok) {
-        throw new Error("Request failed");
-      }
-
-      setStatus("success");
-      setForm(initialState);
-      setErrors({});
-    } catch (err) {
-      setStatus("error");
-    }
+    openWhatsAppMessage(`Hello VTech Institute,\n\nI would like to enquire about your courses.\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nCourse: ${form.course}\nMessage: ${form.message}\n\nPlease contact me regarding my enquiry.`);
+    window.setTimeout(() => setStatus("idle"), 1200);
   };
 
   return (
@@ -342,14 +325,14 @@ export default function Contact() {
             className={styles.submit}
             disabled={status === "loading"}
           >
-            {status === "loading" ? "Sending..." : "Send Enquiry"}
+            {status === "loading" ? "Opening WhatsApp..." : "Send Enquiry"}
 
             {status !== "loading" && (
               <ArrowRight/>
             )}
           </button>
 
-          {status === "success" && (
+          {status === "loading" && (
             <div className={styles.success}>
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
@@ -361,14 +344,7 @@ export default function Contact() {
                 />
               </svg>
 
-              Thanks — your enquiry has been received. Our team will call you
-              shortly.
-            </div>
-          )}
-
-          {status === "error" && (
-            <div className={styles.errorBanner}>
-              Something went wrong. Please try again or call us directly.
+              Opening WhatsApp to send your enquiry...
             </div>
           )}
         </Reveal>
