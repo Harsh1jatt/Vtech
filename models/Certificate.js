@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const { Schema } = mongoose;
 
 const certificateFileSchema = new Schema(
@@ -7,21 +8,30 @@ const certificateFileSchema = new Schema(
       type: String,
       required: [true, "Certificate file URL is required"],
     },
+
     publicId: {
       type: String,
       required: [true, "Certificate file publicId is required"],
     },
+
     originalName: {
       type: String,
+      default: "",
     },
+
     format: {
       type: String,
+      default: "",
     },
+
     resourceType: {
       type: String,
+      default: "",
     },
   },
-  { _id: false }
+  {
+    _id: false,
+  }
 );
 
 const certificateSchema = new Schema(
@@ -31,6 +41,7 @@ const certificateSchema = new Schema(
       required: [true, "Certificate number is required"],
       unique: true,
       trim: true,
+      uppercase: true,
       index: true,
     },
 
@@ -51,6 +62,7 @@ const certificateSchema = new Schema(
       enum: ["VALID", "REVOKED", "EXPIRED"],
       default: "VALID",
       required: true,
+      index: true,
     },
   },
   {
@@ -58,4 +70,17 @@ const certificateSchema = new Schema(
   }
 );
 
-module.exports = mongoose.models.Certificate || mongoose.model("Certificate", certificateSchema);
+certificateSchema.index({
+  certificateNumber: 1,
+});
+
+certificateSchema.index({
+  student: 1,
+  status: 1,
+});
+
+const Certificate =
+  mongoose.models.Certificate ||
+  mongoose.model("Certificate", certificateSchema);
+
+export default Certificate;

@@ -102,7 +102,7 @@ export default function Navbar() {
         <Link
   href="/"
   className={styles.logo}
-  aria-label="VTech Institute of Information Technology - Home"
+  aria-label="VTech Computer & Educational Institute - Home"
 >
   <div className={styles.logoIconWrap}>
     <Image
@@ -121,7 +121,7 @@ export default function Navbar() {
     </span>
 
     <span className={styles.logoSubtitle}>
-      Institute of Information Technology
+      Computer & Educational Institute
     </span>
   </div>
 </Link>

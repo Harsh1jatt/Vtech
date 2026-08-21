@@ -26,20 +26,29 @@ export default function CourseCard({ course }) {
       ? highlights
       : skills;
 
+  // API thumbnail structure:
+  // thumbnail: { url, publicId }
+  const imageUrl =
+    thumbnail?.url ||
+    image ||
+    "";
+
   return (
     <article className={styles.card}>
       {/* ================= IMAGE ================= */}
 
       <div className={styles.media}>
-        {(thumbnail || image) ? (
+        {imageUrl ? (
           <img
-            src={thumbnail || image}
+            src={imageUrl}
             alt={title || "Course"}
             className={styles.image}
           />
         ) : (
           <div className={styles.imagePlaceholder}>
-            <span>{shortTitle?.slice(0, 2) || "CR"}</span>
+            <span>
+              {shortTitle?.slice(0, 2) || "CR"}
+            </span>
           </div>
         )}
 

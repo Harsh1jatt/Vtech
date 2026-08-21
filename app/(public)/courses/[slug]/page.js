@@ -1,22 +1,71 @@
 import { notFound } from "next/navigation";
-
-import { getCourseBySlug } from "@/config/courses";
+import { headers } from "next/headers";
 
 import {
   CourseHeader,
   CourseDetails,
   CourseSidebar,
 } from "@/components/courses";
+
 import styles from "@/components/courses/CourseDetails.module.css";
 
 export default async function CoursePage({ params }) {
   const { slug } = await params;
 
-  const course = getCourseBySlug(slug);
+  const requestHeaders = await headers();
 
-  if (!course) {
+  const host =
+    requestHeaders.get("x-forwarded-host") ||
+    requestHeaders.get("host");
+
+  const protocol =
+    requestHeaders.get("x-forwarded-proto") ||
+    "http";
+
+  if (!host) {
     notFound();
   }
+
+  const apiUrl = `${protocol}://${host}/api/courses/${encodeURIComponent(
+    slug
+  )}`;
+
+  let response;
+
+  try {
+    response = await fetch(apiUrl, {
+      cache: "no-store",
+    });
+  } catch (error) {
+    console.error(
+      "Course API request failed:",
+      error
+    );
+
+    throw error;
+  }
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      notFound();
+    }
+
+    console.error(
+      `Course API returned ${response.status}`
+    );
+
+    throw new Error(
+      "Failed to load course."
+    );
+  }
+
+  const data = await response.json();
+
+  if (!data.success || !data.course) {
+    notFound();
+  }
+
+  const course = data.course;
 
   return (
     <main className={styles.page}>

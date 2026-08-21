@@ -14,7 +14,7 @@ export default function Footer() {
               <span style={styles.logoMark}>
                 VTECH<span style={styles.logoDot}></span>
               </span>
-              <span style={styles.logoSub}>Institute of Information Technology</span>
+              <span style={styles.logoSub}>Computer & Educational Institute</span>
             </Link>
             <p style={styles.brandTagline}>
               Practical computer courses, industry projects, and hands-on career guidance built for real skill.
@@ -88,7 +88,7 @@ export default function Footer() {
 
         {/* Bottom Strip */}
         <div style={styles.bottomBar}>
-          <span>© {currentYear} VTech Institute of Information Technology. All rights reserved.</span>
+          <span>© {currentYear} VTech Computer & Educational Institute. All rights reserved.</span>
           <span style={styles.bottomMuted}>Designed &amp; built for career excellence.</span>
         </div>
       </div>

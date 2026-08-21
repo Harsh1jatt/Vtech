@@ -8,7 +8,7 @@ export default function CourseSidebar({ course }) {
         <div className={styles.sidebarMedia}>
           {course.thumbnail ? (
             <img
-              src={course.thumbnail}
+              src={course.thumbnail?.url}
               alt={course.title}
               className={styles.sidebarImage}
             />

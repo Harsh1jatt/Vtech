@@ -2,34 +2,6 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const certificateSchema = new Schema(
-  {
-    number: {
-      type: String,
-      trim: true,
-      default: "",
-    },
-
-    url: {
-      type: String,
-      trim: true,
-      default: "",
-    },
-
-    publicId: {
-      type: String,
-      trim: true,
-      default: "",
-    },
-
-    issuedAt: {
-      type: Date,
-      default: null,
-    },
-  },
-  { _id: false }
-);
-
 const studentSchema = new Schema(
   {
     // ---------- Personal Information ----------
@@ -134,18 +106,6 @@ const studentSchema = new Schema(
       type: String,
       trim: true,
       default: "",
-    },
-
-    // ---------- Certificate ----------
-
-    certificate: {
-      type: certificateSchema,
-      default: () => ({
-        number: "",
-        url: "",
-        publicId: "",
-        issuedAt: null,
-      }),
     },
   },
 
