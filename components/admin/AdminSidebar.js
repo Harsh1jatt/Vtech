@@ -16,7 +16,16 @@ export default function AdminSidebar({ open, onClose }) {
   const pathname = usePathname();
   const router = useRouter();
   const isActive = (href) => pathname === href || pathname.startsWith(`${href}/`);
-
+async function handleLogout() {
+  try {
+    await fetch("/api/auth/logout", {
+      method: "POST",
+    });
+  } finally {
+    router.push("/admin/login");
+    router.refresh();
+  }
+}
   return <>
     <div className={`${styles.overlay} ${open ? styles.overlayVisible : ""}`} onClick={onClose} aria-hidden="true" />
     <aside className={`${styles.sidebar} ${open ? styles.sidebarOpen : ""}`} aria-label="Admin navigation">
@@ -36,7 +45,14 @@ export default function AdminSidebar({ open, onClose }) {
         <div className={styles.divider} />
         <Link href="/admin/settings" onClick={onClose} className={`${styles.navLink} ${isActive("/admin/settings") ? styles.active : ""}`}><Settings size={18} /><span>Settings</span></Link>
       </nav>
-      <button type="button" className={styles.logout} onClick={() => router.push("/admin/login")}><LogOut size={18} /><span>Log out</span></button>
+      <button
+  type="button"
+  className={styles.logout}
+  onClick={handleLogout}
+>
+  <LogOut size={18} />
+  <span>Log out</span>
+</button>
     </aside>
   </>;
 }

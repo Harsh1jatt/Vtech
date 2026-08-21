@@ -18,7 +18,7 @@ function SectionHeading({ title, href, children }) { return <div className={styl
 
 export default function AdminDashboardPage() {
   return <div className={styles.dashboard}>
-    <div className={styles.pageHeading}><div><span className={styles.eyebrow}>Overview</span><h1>Dashboard</h1><p>Welcome back, Administrator.</p></div><span className={styles.date}>Thursday, 20 August 2026</span></div>
+    <div className={styles.pageHeading}><div><span className={styles.eyebrow}>Overview</span><h1>Dashboard</h1><p>Manage your institute from one place.</p></div><span className={styles.date}>Thursday, 20 August 2026</span></div>
     <div className={styles.stats}>{dashboardStats.map((stat) => <StatCard key={stat.label} {...stat} />)}</div>
     <section className={styles.section}><SectionHeading title="Quick actions" href="/admin/students">Manage your institute</SectionHeading><div className={styles.quickGrid}><QuickAction href="/admin/students/new" title="Add Student" description="Register a learner" icon={UserPlus} /><QuickAction href="/admin/certificates/new" title="Issue Certificate" description="Create a certificate" icon={BadgeCheck} /><QuickAction href="/admin/courses/new" title="Add Course" description="Publish a course" icon={Plus} /></div></section>
     <div className={styles.columns}>
