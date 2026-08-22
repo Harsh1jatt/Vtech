@@ -55,16 +55,6 @@ export default function AdminHeader({ onMenuOpen }) {
       </div>
 
       <div className={styles.actions}>
-        <label className={styles.search}>
-          <Search size={17} />
-
-          <input
-            type="search"
-            placeholder="Search"
-            aria-label="Search administration"
-          />
-        </label>
-
         <div className={styles.profile}>
           <span className={styles.avatar}>
             {initials}

@@ -22,8 +22,13 @@ import { openWhatsAppMessage } from "@/lib/whatsapp";
 import Reveal from "@/components/ui/Reveal/Reveal";
 import {
   ADDRESS,
+  BUSINESS_HOURS,
+  CITY,
   CONTACT_EMAIL,
   CONTACT_PHONE,
+  GOOGLE_MAPS_URL,
+  SITE_NAME,
+  STATE,
 } from "@/config/site";
 
 import styles from "./Contact.module.css";
@@ -115,7 +120,7 @@ const faqs = [
   {
     question: "Where is VTech located?",
     answer:
-      "VTech Institute of Information Technology is located at #1326, Prem Vihar, Main Road, Subhash Nagar, Ludhiana.",
+      `${SITE_NAME} is located at ${ADDRESS}.`,
   },
   {
     question: "What should I mention in my enquiry?",
@@ -581,7 +586,7 @@ export default function Contact() {
 
               <div className={styles.locationBadge}>
                 <MapPin size={17} />
-                <span>Ludhiana, Punjab</span>
+                <span>{CITY}, {STATE}</span>
               </div>
             </Reveal>
 
@@ -617,15 +622,13 @@ export default function Contact() {
 
                 <div>
                   <strong>Opening Hours</strong>
-                  <span>Mon – Sat, 9:00 AM – 7:00 PM</span>
+                  <span>{BUSINESS_HOURS}</span>
                 </div>
               </div>
 
               <div className={styles.locationActions}>
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    ADDRESS
-                  )}`}
+                  href={GOOGLE_MAPS_URL || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`}
                   target="_blank"
                   rel="noreferrer"
                   className={styles.primaryButton}

@@ -2,10 +2,18 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 import connectToDatabase from "@/lib/db";
+import { requireAdmin } from "@/lib/adminAuth";
 import Certificate from "@/models/Certificate";
+
+const ALLOWED_STATUSES = [
+  "VALID",
+  "REVOKED",
+  "EXPIRED",
+];
 
 export async function PATCH(request, { params }) {
   try {
+    await requireAdmin();
     await connectToDatabase();
 
     const { id } = await params;
@@ -22,19 +30,14 @@ export async function PATCH(request, { params }) {
 
     const body = await request.json();
 
-    const status = body.status;
+    const status = body.status?.toString().trim().toUpperCase();
 
-    const allowedStatuses = [
-      "VALID",
-      "REVOKED",
-      "EXPIRED",
-    ];
-
-    if (!allowedStatuses.includes(status)) {
+    if (!ALLOWED_STATUSES.includes(status)) {
       return NextResponse.json(
         {
           success: false,
-          message: "Invalid certificate status.",
+          message:
+            "Invalid status. Allowed values are VALID, REVOKED and EXPIRED.",
         },
         { status: 400 }
       );
@@ -57,7 +60,8 @@ export async function PATCH(request, { params }) {
         populate: {
           path: "course",
         },
-      });
+      })
+      .lean();
 
     if (!certificate) {
       return NextResponse.json(
@@ -71,18 +75,22 @@ export async function PATCH(request, { params }) {
 
     return NextResponse.json({
       success: true,
-      message: `Certificate ${status.toLowerCase()} successfully.`,
+      message: `Certificate status changed to ${status}.`,
       data: certificate,
     });
   } catch (error) {
-    console.error("PATCH certificate status error:", error);
+    console.error(
+      "PATCH /api/certificates/[id]/status:",
+      error
+    );
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to update certificate status.",
+        message:
+          error?.message || "Failed to update certificate status.",
       },
-      { status: 500 }
+      { status: error?.status || 500 }
     );
   }
 }

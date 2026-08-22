@@ -1,6 +1,0 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import CertificateForm from "@/components/admin/CertificateForm";
-import { getCertificateById } from "@/components/admin/certificateData";
-import styles from "@/components/admin/Certificates.module.css";
-export default async function EditCertificatePage({ params }) { const { id } = await params; const certificate = getCertificateById(id); if (!certificate) return <div className={styles.empty}><h2>Certificate not found</h2><Link href="/admin/certificates" className={styles.primaryButton}>Back to certificates</Link></div>; return <div><Link href={`/admin/certificates/${id}`} className={styles.backLink}><ArrowLeft size={15} /> Back to certificate</Link><div className={styles.pageHeader}><div><span className={styles.eyebrow}>Verification record</span><h1>Edit Certificate</h1><p>Update {certificate.certificateNumber} information.</p></div></div><CertificateForm certificate={certificate} submitLabel="Update Certificate" /></div>; }

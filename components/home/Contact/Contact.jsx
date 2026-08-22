@@ -5,6 +5,7 @@ import Reveal from "@/components/ui/Reveal/Reveal";
 import styles from "./Contact.module.css";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { openWhatsAppMessage } from "@/lib/whatsapp";
+import { ADDRESS, BUSINESS_HOURS, CONTACT_EMAIL, CONTACT_PHONE, SITE_NAME } from "@/config/site";
 const courseOptions = [
   "Web Development",
   "DCA",
@@ -92,7 +93,7 @@ export default function Contact() {
         <Reveal className={styles.info}>
           <span className={styles.eyebrow}>Get in touch</span>
 
-          <h3>VTech Institute of Information Technology</h3>
+          <h3>{SITE_NAME}</h3>
 
           <div className={styles.list}>
             <div className={styles.row}>
@@ -116,7 +117,7 @@ export default function Contact() {
               <div>
                 <div className={styles.label}>Address</div>
                 <div className={styles.value}>
-                  #1326, Prem Vihar, Main Road, Subhash Nagar, Ludhiana
+                  {ADDRESS}
                 </div>
               </div>
             </div>
@@ -136,9 +137,9 @@ export default function Contact() {
                 <div className={styles.label}>Phone</div>
                 <a
                   className={styles.value}
-                  href="tel:+919855260786"
+                  href={`tel:+91${CONTACT_PHONE}`}
                 >
-                  +91 98552 60786
+                  +91 {CONTACT_PHONE}
                 </a>
               </div>
             </div>
@@ -167,9 +168,9 @@ export default function Contact() {
                 <div className={styles.label}>Email</div>
                 <a
                   className={styles.value}
-                  href="mailto:Vtech4186@gmail.com"
+                  href={`mailto:${CONTACT_EMAIL}`}
                 >
-                  Vtech4186@gmail.com
+                  {CONTACT_EMAIL}
                 </a>
               </div>
             </div>
@@ -195,7 +196,7 @@ export default function Contact() {
               <div>
                 <div className={styles.label}>Opening Hours</div>
                 <div className={styles.value}>
-                  Mon – Sat, 9:00 AM – 7:00 PM
+                  {BUSINESS_HOURS}
                 </div>
               </div>
             </div>

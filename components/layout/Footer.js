@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link'; // Replace with standard <a> tags if not using Next.js
+import { ADDRESS, CONTACT_EMAIL, CONTACT_PHONE, SITE_NAME, SITE_SHORT_NAME, SOCIAL_LINKS } from '@/config/site';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,7 +13,7 @@ export default function Footer() {
           <div style={styles.brandCol}>
             <Link href="#home" style={styles.logo}>
               <span style={styles.logoMark}>
-                VTECH<span style={styles.logoDot}></span>
+                {SITE_SHORT_NAME}<span style={styles.logoDot}></span>
               </span>
               <span style={styles.logoSub}>Computer & Educational Institute</span>
             </Link>
@@ -22,23 +23,23 @@ export default function Footer() {
             
             {/* Social Icons */}
             <div style={styles.socialRow}>
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" style={styles.socialLink}>
+              {SOCIAL_LINKS.facebook && <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" aria-label="Facebook" style={styles.socialLink}>
                 <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
                   <path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.9.3-1.5 1.6-1.5H16.5V4.3c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2v2H7.5v3H10V21h3.5z" />
                 </svg>
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" style={styles.socialLink}>
+              </a>}
+              {SOCIAL_LINKS.instagram && <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" style={styles.socialLink}>
                 <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="3" width="18" height="18" rx="5" />
                   <circle cx="12" cy="12" r="3.6" />
                   <circle cx="17.2" cy="6.8" r="1" />
                 </svg>
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" style={styles.socialLink}>
+              </a>}
+              {SOCIAL_LINKS.linkedin && <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" style={styles.socialLink}>
                 <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
                   <path d="M6.94 5a2 2 0 11-4-.002 2 2 0 014 .002zM3.5 8.5h3.9V21H3.5V8.5zm6.6 0h3.7v1.7h.05c.52-.98 1.78-2 3.66-2 3.9 0 4.63 2.57 4.63 5.9V21h-3.9v-5.4c0-1.3-.02-2.97-1.8-2.97-1.8 0-2.08 1.4-2.08 2.87V21h-3.9V8.5z" />
                 </svg>
-              </a>
+              </a>}
             </div>
           </div>
 
@@ -72,15 +73,15 @@ export default function Footer() {
             <ul style={styles.linkList}>
               <li style={styles.contactItem}>
                 <span style={styles.contactLabel}>Address</span>
-                <span style={styles.contactVal}>#1326, Prem Vihar, Main Road, Subhash Nagar, ludhiana</span>
+                <span style={styles.contactVal}>{ADDRESS}</span>
               </li>
               <li style={styles.contactItem}>
                 <span style={styles.contactLabel}>Phone</span>
-                <a href="tel:+919855260786" style={styles.contactLink}>+91 98552 60786</a>
+                <a href={`tel:+91${CONTACT_PHONE}`} style={styles.contactLink}>+91 {CONTACT_PHONE}</a>
               </li>
               <li style={styles.contactItem}>
                 <span style={styles.contactLabel}>Email</span>
-                <a href="mailto:Vtech4186@gmail.com" style={styles.contactLink}>Vtech4186@gmail.com</a>
+                <a href={`mailto:${CONTACT_EMAIL}`} style={styles.contactLink}>{CONTACT_EMAIL}</a>
               </li>
             </ul>
           </div>
@@ -88,7 +89,7 @@ export default function Footer() {
 
         {/* Bottom Strip */}
         <div style={styles.bottomBar}>
-          <span>© {currentYear} VTech Computer & Educational Institute. All rights reserved.</span>
+          <span>© {currentYear} {SITE_NAME}. All rights reserved.</span>
           <span style={styles.bottomMuted}>Designed &amp; built for career excellence.</span>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/config/site";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -23,9 +24,14 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "VTech Institute of Information Technology — Learn Today. Build Tomorrow.",
-  description:
-    "VTech Institute of Information Technology — practical computer courses, hands-on projects and career guidance.",
+  title: `${SITE_NAME} — Learn Today. Build Tomorrow.`,
+  description: SITE_DESCRIPTION,
+
+  icons: {
+    icon: "/images/logo.png",
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -2,24 +2,20 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 import connectToDatabase from "@/lib/db";
+import { requireAdmin } from "@/lib/adminAuth";
+
 import Certificate from "@/models/Certificate";
 import Student from "@/models/Student";
+
 import "@/models/Course";
 
-import {
-  uploadToCloudinary,
-  deleteFromCloudinary,
-} from "@/lib/cloudinary";
+/* =========================================================
+   GET /api/certificates/[id]
+========================================================= */
 
-function getResourceType(fileType) {
-  return fileType === "application/pdf" ? "raw" : "image";
-}
-
-/**
- * GET /api/certificates/:id
- */
 export async function GET(request, { params }) {
   try {
+    await requireAdmin();
     await connectToDatabase();
 
     const { id } = await params;
@@ -58,32 +54,41 @@ export async function GET(request, { params }) {
       data: certificate,
     });
   } catch (error) {
-    console.error("GET certificate error:", error);
+    console.error(
+      "GET /api/certificates/[id]:",
+      error
+    );
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch certificate.",
+        message:
+          error?.message ||
+          "Failed to fetch certificate.",
       },
-      { status: 500 }
+      {
+        status: error?.status || 500,
+      }
     );
   }
 }
 
-/**
- * PUT /api/certificates/:id
- *
- * Supports updating:
- * - certificate number
- * - student
- * - status
- * - certificate file
- */
+/* =========================================================
+   PUT /api/certificates/[id]
+========================================================= */
+
 export async function PUT(request, { params }) {
+  let uploadedNewFile = null;
+
   try {
+    await requireAdmin();
     await connectToDatabase();
 
     const { id } = await params;
+
+    /* -----------------------------------------------------
+       Validate certificate ID
+    ----------------------------------------------------- */
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -95,9 +100,14 @@ export async function PUT(request, { params }) {
       );
     }
 
-    const certificate = await Certificate.findById(id);
+    /* -----------------------------------------------------
+       Find existing certificate
+    ----------------------------------------------------- */
 
-    if (!certificate) {
+    const existingCertificate =
+      await Certificate.findById(id);
+
+    if (!existingCertificate) {
       return NextResponse.json(
         {
           success: false,
@@ -107,186 +117,438 @@ export async function PUT(request, { params }) {
       );
     }
 
+    /* -----------------------------------------------------
+       Read FormData
+    ----------------------------------------------------- */
+
     const formData = await request.formData();
 
-    const certificateNumber = formData
-      .get("certificateNumber")
-      ?.toString()
-      .trim()
-      .toUpperCase();
+    const certificateNumberInput =
+      formData.get("certificateNumber");
 
-    const studentId = formData.get("studentId")?.toString();
+    const studentIdInput =
+      formData.get("studentId");
 
-    const status = formData.get("status")?.toString();
+    const statusInput =
+      formData.get("status");
 
-    const file = formData.get("certificateFile");
+    const file =
+      formData.get("certificateFile");
 
-    if (certificateNumber) {
-      const duplicate = await Certificate.findOne({
+    /* -----------------------------------------------------
+       Certificate number
+    ----------------------------------------------------- */
+
+    const certificateNumber =
+      certificateNumberInput
+        ?.toString()
+        .trim();
+
+    if (!certificateNumber) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Certificate number is required.",
+        },
+        { status: 400 }
+      );
+    }
+
+    /* -----------------------------------------------------
+       Student ID
+    ----------------------------------------------------- */
+
+    const studentId =
+      studentIdInput?.toString().trim();
+
+    if (!studentId) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Student is required.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (
+      !mongoose.Types.ObjectId.isValid(
+        studentId
+      )
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid student ID.",
+        },
+        { status: 400 }
+      );
+    }
+
+    /* -----------------------------------------------------
+       Check student exists
+    ----------------------------------------------------- */
+
+    const student =
+      await Student.findById(studentId)
+        .populate("course")
+        .lean();
+
+    if (!student) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Student not found.",
+        },
+        { status: 404 }
+      );
+    }
+
+    /* -----------------------------------------------------
+       Duplicate certificate number
+       Ignore current certificate
+    ----------------------------------------------------- */
+
+    const duplicateCertificate =
+      await Certificate.findOne({
         certificateNumber,
-        _id: { $ne: certificate._id },
+        _id: {
+          $ne: id,
+        },
       });
 
-      if (duplicate) {
-        return NextResponse.json(
-          {
-            success: false,
-            message: "Certificate number already exists.",
-          },
-          { status: 409 }
-        );
-      }
-
-      certificate.certificateNumber = certificateNumber;
+    if (duplicateCertificate) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Certificate number already exists.",
+        },
+        { status: 409 }
+      );
     }
 
-    if (studentId) {
-      if (!mongoose.Types.ObjectId.isValid(studentId)) {
+    /* -----------------------------------------------------
+       Status
+
+       If frontend does not send status, preserve
+       the existing status.
+    ----------------------------------------------------- */
+
+    const allowedStatuses = [
+      "VALID",
+      "REVOKED",
+      "EXPIRED",
+    ];
+
+    const status =
+      statusInput?.toString().trim() ||
+      existingCertificate.status ||
+      "VALID";
+
+    if (!allowedStatuses.includes(status)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Invalid certificate status.",
+        },
+        { status: 400 }
+      );
+    }
+
+    /* -----------------------------------------------------
+       Prepare update
+    ----------------------------------------------------- */
+
+    const updateData = {
+      certificateNumber,
+      student: student._id,
+      status,
+    };
+
+    /* -----------------------------------------------------
+       Check for new file
+    ----------------------------------------------------- */
+
+    const hasNewFile =
+      file &&
+      typeof file !== "string" &&
+      typeof file.arrayBuffer ===
+        "function";
+
+    if (hasNewFile) {
+      /* ---------------------------------------------------
+         File size
+      --------------------------------------------------- */
+
+      const maxFileSize =
+        5 * 1024 * 1024;
+
+      if (file.size > maxFileSize) {
         return NextResponse.json(
           {
             success: false,
-            message: "Invalid student ID.",
+            message:
+              "Certificate file must be smaller than 5 MB.",
           },
           { status: 400 }
         );
       }
 
-      const student = await Student.findById(studentId);
+      /* ---------------------------------------------------
+         Allowed file types
+      --------------------------------------------------- */
 
-      if (!student) {
-        return NextResponse.json(
-          {
-            success: false,
-            message: "Student not found.",
-          },
-          { status: 404 }
-        );
-      }
-
-      certificate.student = student._id;
-    }
-
-    if (status) {
-      const allowedStatuses = [
-        "VALID",
-        "REVOKED",
-        "EXPIRED",
-      ];
-
-      if (!allowedStatuses.includes(status)) {
-        return NextResponse.json(
-          {
-            success: false,
-            message: "Invalid certificate status.",
-          },
-          { status: 400 }
-        );
-      }
-
-      certificate.status = status;
-    }
-
-    let oldCloudinaryFile = null;
-
-    if (file && typeof file !== "string") {
       const allowedTypes = [
         "application/pdf",
         "image/jpeg",
         "image/png",
-        "image/webp",
       ];
 
       if (!allowedTypes.includes(file.type)) {
         return NextResponse.json(
           {
             success: false,
-            message: "Invalid certificate file type.",
+            message:
+              "Only PDF, JPG and PNG certificates are allowed.",
           },
           { status: 400 }
         );
       }
 
-      if (file.size > 10 * 1024 * 1024) {
-        return NextResponse.json(
+      /* ---------------------------------------------------
+         Convert File -> Buffer
+      --------------------------------------------------- */
+
+      const buffer = Buffer.from(
+        await file.arrayBuffer()
+      );
+
+      const resourceType =
+        file.type ===
+        "application/pdf"
+          ? "raw"
+          : "image";
+
+      /* ---------------------------------------------------
+         Upload new file to Cloudinary
+      --------------------------------------------------- */
+
+      const {
+        uploadToCloudinary,
+      } = await import(
+        "@/lib/cloudinary"
+      );
+
+      uploadedNewFile =
+        await uploadToCloudinary(
+          buffer,
           {
-            success: false,
-            message: "Certificate file must be 10 MB or smaller.",
-          },
-          { status: 400 }
+            folder:
+              "vtech/certificates",
+            resourceType,
+            originalName:
+              file.name,
+          }
         );
-      }
 
-      oldCloudinaryFile = {
-        publicId: certificate.certificateFile.publicId,
+      /* ---------------------------------------------------
+         Replace certificate file data
+      --------------------------------------------------- */
+
+      updateData.certificateFile = {
+        url: uploadedNewFile.url,
+        publicId:
+          uploadedNewFile.publicId,
+        originalName:
+          file.name,
+        format:
+          uploadedNewFile.format,
         resourceType:
-          certificate.certificateFile.resourceType || "image",
-      };
-
-      const buffer = Buffer.from(await file.arrayBuffer());
-
-      const uploaded = await uploadToCloudinary(buffer, {
-        folder: "vtech/certificates",
-        resourceType: getResourceType(file.type),
-        originalName: file.name,
-      });
-
-      certificate.certificateFile = {
-        url: uploaded.url,
-        publicId: uploaded.publicId,
-        originalName: file.name,
-        format: uploaded.format,
-        resourceType: uploaded.resourceType,
+          uploadedNewFile.resourceType,
       };
     }
 
-    await certificate.save();
+    /* -----------------------------------------------------
+       Update MongoDB
+    ----------------------------------------------------- */
 
-    if (oldCloudinaryFile) {
-      try {
-        await deleteFromCloudinary(
-          oldCloudinaryFile.publicId,
-          oldCloudinaryFile.resourceType
+    let updatedCertificate;
+
+    try {
+      updatedCertificate =
+        await Certificate.findByIdAndUpdate(
+          id,
+          {
+            $set: updateData,
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
         );
-      } catch (cleanupError) {
+
+      if (!updatedCertificate) {
+        throw new Error(
+          "Certificate not found during update."
+        );
+      }
+    } catch (databaseError) {
+      /* ---------------------------------------------------
+         MongoDB failed after new Cloudinary upload.
+         Delete the new file.
+      --------------------------------------------------- */
+
+      if (
+        uploadedNewFile?.publicId
+      ) {
+        try {
+          const {
+            deleteFromCloudinary,
+          } = await import(
+            "@/lib/cloudinary"
+          );
+
+          await deleteFromCloudinary(
+            uploadedNewFile.publicId,
+            uploadedNewFile.resourceType
+          );
+        } catch (cleanupError) {
+          console.error(
+            "New Cloudinary file cleanup failed:",
+            cleanupError
+          );
+        }
+      }
+
+      throw databaseError;
+    }
+
+    /* -----------------------------------------------------
+       Delete OLD Cloudinary file
+
+       Only after MongoDB successfully references
+       the new file.
+    ----------------------------------------------------- */
+
+    if (
+      hasNewFile &&
+      existingCertificate
+        .certificateFile
+        ?.publicId
+    ) {
+      try {
+        const {
+          deleteFromCloudinary,
+        } = await import(
+          "@/lib/cloudinary"
+        );
+
+        await deleteFromCloudinary(
+          existingCertificate
+            .certificateFile.publicId,
+          existingCertificate
+            .certificateFile.resourceType
+        );
+      } catch (cloudinaryError) {
         console.error(
-          "Failed to delete old certificate file:",
-          cleanupError
+          "Old Cloudinary certificate deletion failed:",
+          cloudinaryError
         );
       }
     }
 
-    const updatedCertificate = await Certificate.findById(id)
-      .populate({
-        path: "student",
-        populate: {
-          path: "course",
-        },
-      })
-      .lean();
+    /* -----------------------------------------------------
+       Populate updated certificate
+    ----------------------------------------------------- */
+
+    const populatedCertificate =
+      await Certificate.findById(id)
+        .populate({
+          path: "student",
+          populate: {
+            path: "course",
+          },
+        })
+        .lean();
+
+    /* -----------------------------------------------------
+       Success
+    ----------------------------------------------------- */
 
     return NextResponse.json({
       success: true,
-      message: "Certificate updated successfully.",
-      data: updatedCertificate,
+      message:
+        "Certificate updated successfully.",
+      data: populatedCertificate,
     });
   } catch (error) {
-    console.error("PUT certificate error:", error);
+    console.error(
+      "PUT /api/certificates/[id]:",
+      error
+    );
+
+    /* -----------------------------------------------------
+       Duplicate key
+    ----------------------------------------------------- */
+
+    if (error?.code === 11000) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Certificate number already exists.",
+        },
+        { status: 409 }
+      );
+    }
+
+    /* -----------------------------------------------------
+       Authentication / authorization
+    ----------------------------------------------------- */
+
+    if (
+      error?.status === 401 ||
+      error?.status === 403
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            error.status === 401
+              ? "Authentication required."
+              : "You are not authorized to update this certificate.",
+        },
+        {
+          status: error.status,
+        }
+      );
+    }
+
+    /* -----------------------------------------------------
+       Generic error
+    ----------------------------------------------------- */
 
     return NextResponse.json(
       {
         success: false,
-        message: error.message || "Failed to update certificate.",
+        message:
+          error?.message ||
+          "Failed to update certificate.",
       },
       { status: 500 }
     );
   }
 }
+/* =========================================================
+   DELETE /api/certificates/[id]
+========================================================= */
 
-/**
- * DELETE /api/certificates/:id
- */
 export async function DELETE(request, { params }) {
   try {
+    await requireAdmin();
     await connectToDatabase();
 
     const { id } = await params;
@@ -301,7 +563,7 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const certificate = await Certificate.findById(id);
+    const certificate = await Certificate.findById(id).lean();
 
     if (!certificate) {
       return NextResponse.json(
@@ -313,19 +575,31 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const file = certificate.certificateFile;
-
+    /*
+     * Delete MongoDB record first.
+     * This prevents the database from keeping a certificate
+     * whose Cloudinary file has already been deleted.
+     */
     await Certificate.findByIdAndDelete(id);
 
-    if (file?.publicId) {
+    /*
+     * Delete Cloudinary file after MongoDB deletion.
+     * If Cloudinary deletion fails, the database record is
+     * already gone, so we only log the cleanup failure.
+     */
+    if (certificate.certificateFile?.publicId) {
       try {
+        const {
+          deleteFromCloudinary,
+        } = await import("@/lib/cloudinary");
+
         await deleteFromCloudinary(
-          file.publicId,
-          file.resourceType || "image"
+          certificate.certificateFile.publicId,
+          certificate.certificateFile.resourceType
         );
       } catch (cloudinaryError) {
         console.error(
-          "Cloudinary certificate deletion failed:",
+          "Certificate Cloudinary deletion failed:",
           cloudinaryError
         );
       }
@@ -336,14 +610,36 @@ export async function DELETE(request, { params }) {
       message: "Certificate deleted successfully.",
     });
   } catch (error) {
-    console.error("DELETE certificate error:", error);
+    console.error(
+      "DELETE /api/certificates/[id]:",
+      error
+    );
+
+    if (error?.status === 401 || error?.status === 403) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            error.status === 401
+              ? "Authentication required."
+              : "You are not authorized to delete this certificate.",
+        },
+        {
+          status: error.status,
+        }
+      );
+    }
 
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to delete certificate.",
+        message:
+          error?.message ||
+          "Failed to delete certificate.",
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 }

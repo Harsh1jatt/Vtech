@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness, Check, Code2, Layers3, MessageCircle, Palette, Search, Sparkles, UsersRound } from "lucide-react";
-import { CONTACT_PHONE } from "@/config/site";
+import { WHATSAPP_NUMBER } from "@/config/site";
 import { courses } from "@/config/courses";
 import Reveal from "@/components/ui/Reveal/Reveal";
 import styles from "./InternshipsPage.module.css";
 
 const whatsappMessage = "Hello VTech Institute, I am interested in an internship opportunity. I would like to know more about the available internship programs.";
-const whatsappHref = `https://wa.me/91${CONTACT_PHONE}?text=${encodeURIComponent(whatsappMessage)}`;
+const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
 
 const internshipAreas = [
   { title: "Web Development", description: "Build responsive websites and practical web projects.", icon: Code2, match: ["Web Development", "Web Designing"] },

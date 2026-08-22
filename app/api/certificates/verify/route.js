@@ -11,16 +11,13 @@ export async function GET(request) {
 
     const { searchParams } = new URL(request.url);
 
-    const certificateNumber = searchParams
-      .get("certificateNumber")
-      ?.trim()
-      .toUpperCase();
+    const certificateNumber =
+      searchParams.get("certificateNumber")?.trim();
 
     if (!certificateNumber) {
       return NextResponse.json(
         {
           success: false,
-          verified: false,
           message: "Certificate number is required.",
         },
         { status: 400 }
@@ -49,46 +46,59 @@ export async function GET(request) {
       );
     }
 
-    const student = certificate.student;
+    /*
+     * Do not expose private student information publicly.
+     */
 
-    const isValid =
-      certificate.status === "VALID";
+    const student = certificate.student;
+    const course = student?.course;
 
     return NextResponse.json({
       success: true,
-      verified: isValid,
+      verified: certificate.status === "VALID",
 
       data: {
-        certificateNumber: certificate.certificateNumber,
+        certificateNumber:
+          certificate.certificateNumber,
 
         status: certificate.status,
 
+        issuedOn: certificate.createdAt,
+
         student: {
-          fullName: student?.fullName || "",
-          rollNumber: student?.rollNumber || "",
+          name: student?.fullName || "",
         },
 
-        course: student?.course || null,
-
-        issuedAt: certificate.createdAt,
-
-        certificateFile: {
-          url: certificate.certificateFile?.url || "",
+        course: {
+          title: course?.title || "",
+          shortTitle: course?.shortTitle || "",
         },
+
+        certificateFile: certificate.certificateFile
+          ? {
+              url: certificate.certificateFile.url || "",
+              originalName:
+                certificate.certificateFile.originalName ||
+                "",
+            }
+          : null,
       },
 
-      message: isValid
-        ? "Certificate is valid and verified."
-        : `Certificate is ${certificate.status.toLowerCase()}.`,
+      message:
+        certificate.status === "VALID"
+          ? "Certificate is valid."
+          : `Certificate is ${certificate.status.toLowerCase()}.`,
     });
   } catch (error) {
-    console.error("Certificate verification error:", error);
+    console.error(
+      "GET /api/certificates/verify:",
+      error
+    );
 
     return NextResponse.json(
       {
         success: false,
-        verified: false,
-        message: "Unable to verify certificate.",
+        message: "Certificate verification failed.",
       },
       { status: 500 }
     );
