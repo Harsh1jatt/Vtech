@@ -1,14 +1,14 @@
-import Link from "next/link";
 import styles from "./CourseDetails.module.css";
+import CourseBuyButton from "./CourseBuyButton";
 
 export default function CourseSidebar({ course }) {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.sidebarCard}>
         <div className={styles.sidebarMedia}>
-          {course.thumbnail ? (
+          {course.thumbnail?.url ? (
             <img
-              src={course.thumbnail?.url}
+              src={course.thumbnail.url}
               alt={course.title}
               className={styles.sidebarImage}
             />
@@ -20,31 +20,35 @@ export default function CourseSidebar({ course }) {
         </div>
 
         <div className={styles.sidebarBody}>
-          <p className={styles.sidebarMeta}>Course Duration</p>
+          <p className={styles.sidebarMeta}>
+            Course Duration
+          </p>
 
-          <p className={styles.sidebarValue}>{course.duration}</p>
+          <p className={styles.sidebarValue}>
+            {course.duration || "Contact for Details"}
+          </p>
 
           <hr className={styles.sidebarDivider} />
 
-          <p className={styles.sidebarMeta}>Course Fee</p>
+          <p className={styles.sidebarMeta}>
+            Course Fee
+          </p>
 
           {course.price ? (
             <p className={styles.sidebarFee}>
-              ₹{course.price.toLocaleString("en-IN")}
+              ₹{Number(course.price).toLocaleString("en-IN")}
             </p>
           ) : (
-            <p className={styles.sidebarValue}>Contact for Fee</p>
+            <p className={styles.sidebarValue}>
+              Contact for Fee
+            </p>
           )}
 
-          <Link
-            href="/contact"
-            className={styles.sidebarCta}
-          >
-            Enquire About This Course
-          </Link>
+          <CourseBuyButton course={course} />
 
           <p className={styles.sidebarNote}>
-            Contact us for admission details, fees and course availability.
+            Contact us on WhatsApp for admission details,
+            fees, batch timings and course availability.
           </p>
         </div>
       </div>
