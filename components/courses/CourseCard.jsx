@@ -33,6 +33,38 @@ export default function CourseCard({ course }) {
     image ||
     "";
 
+  // ================= BUY COURSE =================
+
+  const handleBuyCourse = () => {
+    const whatsappNumber =
+      process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+
+    if (!whatsappNumber) {
+      console.error(
+        "NEXT_PUBLIC_WHATSAPP_NUMBER is not configured."
+      );
+      return;
+    }
+
+    const message = `Hello VTech Institute,
+
+I am interested in enrolling in the following course:
+
+📚 Course: ${title || "N/A"}
+${shortTitle ? `🏷️ Short Name: ${shortTitle}\n` : ""}${category ? `📂 Category: ${category}\n` : ""}${level ? `📊 Level: ${level}\n` : ""}${duration ? `⏱️ Duration: ${duration}\n` : ""}${type ? `🎓 Type: ${type}\n` : ""}
+
+Please share the admission/enrollment process and fee details.
+
+Thank you.`;
+
+    const whatsappUrl =
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        message
+      )}`;
+
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <article className={styles.card}>
       {/* ================= IMAGE ================= */}
@@ -157,33 +189,50 @@ export default function CourseCard({ course }) {
             Explore course
           </span>
 
-          {slug ? (
-            <Link
-              href={`/courses/${slug}`}
-              className={styles.button}
-              aria-label={`View ${title}`}
+          <div className={styles.actions}>
+            {slug ? (
+              <Link
+                href={`/courses/${slug}`}
+                className={styles.button}
+                aria-label={`View ${title}`}
+              >
+                <span>View Course</span>
+
+                <span
+                  className={styles.arrow}
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              </Link>
+            ) : (
+              <span className={styles.button}>
+                <span>View Course</span>
+
+                <span
+                  className={styles.arrow}
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              </span>
+            )}
+
+            <button
+              type="button"
+              className={styles.buyButton}
+              onClick={handleBuyCourse}
             >
-              <span>View Course</span>
+              <span>Buy Course</span>
 
               <span
-                className={styles.arrow}
+                className={styles.whatsappIcon}
                 aria-hidden="true"
               >
-                →
+                ↗
               </span>
-            </Link>
-          ) : (
-            <span className={styles.button}>
-              <span>View Course</span>
-
-              <span
-                className={styles.arrow}
-                aria-hidden="true"
-              >
-                →
-              </span>
-            </span>
-          )}
+            </button>
+          </div>
         </div>
       </div>
     </article>

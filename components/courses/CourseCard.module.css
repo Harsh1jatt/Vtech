@@ -1,3 +1,7 @@
+/* =========================================================
+   CARD
+   ========================================================= */
+
 .card {
   position: relative;
   display: flex;
@@ -8,7 +12,6 @@
   border-radius: var(--radius-lg);
   background: var(--color-surface);
   box-shadow: var(--shadow-sm);
-
   transition:
     transform 0.3s var(--ease),
     box-shadow 0.3s var(--ease),
@@ -16,10 +19,11 @@
 }
 
 .card:hover {
-  border-color: rgba(21, 128, 61, 0.25);
+  border-color: rgba(21, 128, 61, 0.28);
   box-shadow: var(--shadow-lg);
   transform: translateY(-6px);
 }
+
 
 /* =========================================================
    MEDIA
@@ -36,9 +40,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-
-  transition:
-    transform 0.6s var(--ease);
+  transition: transform 0.6s var(--ease);
 }
 
 .card:hover .image {
@@ -48,25 +50,21 @@
 .overlay {
   position: absolute;
   inset: 0;
-
+  pointer-events: none;
   background:
     linear-gradient(
       to bottom,
-      rgba(20, 34, 26, 0.04) 20%,
-      rgba(20, 34, 26, 0.18) 100%
+      rgba(20, 34, 26, 0.02) 15%,
+      rgba(20, 34, 26, 0.2) 100%
     );
-
-  pointer-events: none;
 }
 
 .imagePlaceholder {
-  width: 100%;
-  height: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
+  width: 100%;
+  height: 100%;
   background:
     radial-gradient(
       circle at 20% 20%,
@@ -84,22 +82,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 76px;
   height: 76px;
-
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 24px;
-
   background: rgba(255, 255, 255, 0.1);
   color: var(--color-white);
-
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 800;
-
   backdrop-filter: blur(8px);
 }
+
 
 /* =========================================================
    BADGES
@@ -120,8 +114,8 @@
   border-radius: var(--radius-full);
 
   background: rgba(20, 34, 26, 0.72);
-  color: var(--color-white);
 
+  color: var(--color-white);
   font-size: 0.67rem;
   font-weight: 800;
 
@@ -157,6 +151,7 @@
   text-overflow: ellipsis;
 }
 
+
 /* =========================================================
    CONTENT
    ========================================================= */
@@ -177,19 +172,26 @@
   margin-bottom: 6px;
 
   color: var(--color-primary);
+
   font-size: 0.68rem;
   font-weight: 800;
+
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .heading h3 {
+  margin: 0;
+
+  color: var(--color-foreground);
+
   font-size: 1.25rem;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .description {
   display: -webkit-box;
+
   overflow: hidden;
 
   margin-top: 12px;
@@ -202,6 +204,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
+
 
 /* =========================================================
    META
@@ -238,8 +241,8 @@
 
   flex: 0 0 auto;
 
-  width: 27px;
-  height: 27px;
+  width: 28px;
+  height: 28px;
 
   border-radius: 8px;
 
@@ -271,11 +274,13 @@
   color: var(--color-foreground);
 
   font-size: 0.67rem;
+  font-weight: 800;
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 /* =========================================================
    SKILLS
@@ -308,6 +313,7 @@
   color: var(--color-primary-dark);
 }
 
+
 /* =========================================================
    FOOTER
    ========================================================= */
@@ -316,25 +322,45 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
 
   margin-top: auto;
   padding-top: 22px;
 }
 
 .learn {
+  flex: 1;
+
   color: var(--color-muted-foreground);
 
   font-size: 0.68rem;
   font-weight: 700;
 }
 
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* =========================================================
+   VIEW COURSE BUTTON
+   ========================================================= */
+
 .button {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  justify-content: center;
+  gap: 8px;
 
-  padding: 9px 11px 9px 14px;
+  min-height: 42px;
+  padding: 8px 10px 8px 14px;
 
   border-radius: var(--radius-full);
 
@@ -344,14 +370,18 @@
   font-size: 0.7rem;
   font-weight: 800;
 
+  text-decoration: none;
+
   transition:
     background var(--transition-base),
-    transform var(--transition-base);
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 .button:hover {
   background: var(--color-primary-dark);
-  transform: translateX(2px);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(21, 128, 61, 0.18);
 }
 
 .arrow {
@@ -378,8 +408,83 @@
   transform: translateX(2px);
 }
 
+
 /* =========================================================
-   RESPONSIVE
+   BUY COURSE / WHATSAPP BUTTON
+   ========================================================= */
+
+.buyButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  min-height: 42px;
+  padding: 8px 13px;
+
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  border-radius: var(--radius-full);
+
+  background: rgba(37, 211, 102, 0.09);
+  color: #15803d;
+
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.buyButton:hover {
+  border-color: #25d366;
+  background: #25d366;
+  color: #ffffff;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 16px rgba(37, 211, 102, 0.2);
+}
+
+.buyButton:active {
+  transform: translateY(0);
+}
+
+.whatsappIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 23px;
+  height: 23px;
+
+  border-radius: 50%;
+
+  background: rgba(37, 211, 102, 0.14);
+
+  font-size: 0.9rem;
+  line-height: 1;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.buyButton:hover .whatsappIcon {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   TABLET
    ========================================================= */
 
 @media (max-width: 1100px) {
@@ -394,7 +499,25 @@
   .learn {
     display: none;
   }
+
+  .footer {
+    align-items: stretch;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .actions .button,
+  .actions .buyButton {
+    flex: 1;
+  }
 }
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 650px) {
   .media {
@@ -427,5 +550,86 @@
 
   .footer {
     padding-top: 19px;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .actions .button,
+  .actions .buyButton {
+    flex: 1;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .media {
+    height: 190px;
+  }
+
+  .content {
+    padding: 18px;
+  }
+
+  .heading h3 {
+    font-size: 1.1rem;
+  }
+
+  .description {
+    font-size: 0.76rem;
+  }
+
+  .meta {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 13px 0;
+  }
+
+  .metaItem + .metaItem {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .metaItem {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .metaItem div {
+    flex: 1;
+  }
+
+  .metaItem strong {
+    font-size: 0.68rem;
+  }
+
+  .skills {
+    margin-top: 14px;
+  }
+
+  .footer {
+    margin-top: 18px;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .actions .button,
+  .actions .buyButton {
+    width: 100%;
+    flex: none;
+  }
+
+  .button,
+  .buyButton {
+    min-height: 44px;
   }
 }

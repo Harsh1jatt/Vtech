@@ -6,6 +6,12 @@ export default function CourseGrid({
 }) {
   return (
     <div className={styles.wrapper}>
+      <div className={styles.grid}>
+         <CourseCard/>
+         <CourseCard/>
+         <CourseCard/>
+         <CourseCard/>
+                 </div>
       {courses.length > 0 ? (
         <div className={styles.grid}>
           {courses.map((course) => (

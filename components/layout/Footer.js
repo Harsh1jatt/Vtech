@@ -52,6 +52,7 @@ export default function Footer() {
               <li><Link href="#about" style={styles.link}>About Us</Link></li>
               <li><Link href="#facilities" style={styles.link}>Facilities</Link></li>
               <li><Link href="#reviews" style={styles.link}>Student Reviews</Link></li>
+              <li><Link href="/admin/login" style={styles.link}>Admin Login</Link></li>
             </ul>
           </div>
 
