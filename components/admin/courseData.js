@@ -1,17 +1,20 @@
-export const courseCategories = ["Office Applications", "Programming", "Design", "Marketing", "Accounting"];
-export const courseStatuses = ["Active", "Inactive"];
-
-export const demoCourses = [
-  { id: "dca", name: "Diploma in Computer Applications", shortCode: "DCA", description: "A practical foundation in computer applications, office productivity and digital workplace skills.", duration: "6 months", fees: "₹18,000", category: "Office Applications", status: "Active", featured: true, image: "/images/courses/dca.jpg", highlights: ["MS Office and productivity tools", "Internet and digital documentation", "Hands-on computer lab practice"], eligibility: "10th pass or equivalent", curriculum: ["Computer fundamentals", "Windows and file management", "MS Word, Excel and PowerPoint", "Internet and email essentials"] },
-  { id: "adca", name: "Advanced Diploma in Computer Applications", shortCode: "ADCA", description: "An advanced computer applications programme for learners preparing for office and administrative careers.", duration: "12 months", fees: "₹32,000", category: "Office Applications", status: "Active", featured: true, image: "/images/courses/adca.jpg", highlights: ["Advanced office automation", "Database fundamentals", "Accounting and documentation workflows"], eligibility: "10+2 pass or equivalent", curriculum: ["Advanced MS Office", "Computerized accounting", "Database concepts", "Project and workplace communication"] },
-  { id: "web-development", name: "Full Stack Web Development", shortCode: "WEB", description: "Build responsive, accessible websites and modern web applications through project-based learning.", duration: "9 months", fees: "₹45,000", category: "Programming", status: "Active", featured: true, image: "/images/courses/web-development.jpg", highlights: ["HTML, CSS and JavaScript", "React and modern frontend", "Real-world portfolio projects"], eligibility: "12th pass or equivalent", curriculum: ["Web foundations", "JavaScript programming", "React applications", "Backend concepts and deployment"] },
-  { id: "python", name: "Python Programming", shortCode: "PY", description: "Learn Python programming from fundamentals to practical automation and data-focused projects.", duration: "6 months", fees: "₹28,000", category: "Programming", status: "Active", featured: true, image: "/images/courses/python.jpg", highlights: ["Clear programming fundamentals", "Automation with Python", "Practical capstone projects"], eligibility: "10+2 pass with basic computer knowledge", curriculum: ["Python syntax and logic", "Object-oriented programming", "Files, APIs and automation", "Project development"] },
-  { id: "digital-marketing", name: "Digital Marketing", shortCode: "DM", description: "Develop practical skills in content, search, social media and performance marketing.", duration: "4 months", fees: "₹22,000", category: "Marketing", status: "Active", featured: false, image: "/images/courses/digital-marketing.jpg", highlights: ["Search and social strategy", "Content planning", "Campaign measurement"], eligibility: "10+2 pass or equivalent", curriculum: ["Digital marketing foundations", "SEO and content", "Social media campaigns", "Analytics and reporting"] },
-  { id: "graphic-design", name: "Graphic Design", shortCode: "GD", description: "Turn ideas into polished visual communication with design principles and creative software.", duration: "6 months", fees: "₹26,000", category: "Design", status: "Active", featured: false, image: "/images/courses/graphic-design.jpg", highlights: ["Design principles and typography", "Brand identity projects", "Portfolio development"], eligibility: "10th pass or equivalent", curriculum: ["Design fundamentals", "Typography and colour", "Digital illustration", "Branding and portfolio"] },
-  { id: "tally", name: "Tally Prime with GST", shortCode: "TALLY", description: "Master computerized accounting, inventory and GST workflows for small businesses and offices.", duration: "3 months", fees: "₹15,000", category: "Accounting", status: "Active", featured: false, image: "/images/courses/tally.jpg", highlights: ["Tally Prime workflows", "GST and invoicing", "Practical business accounts"], eligibility: "10+2 pass or equivalent", curriculum: ["Accounting fundamentals", "Tally Prime setup", "GST and compliance", "Inventory and reporting"] },
-  { id: "c-cpp", name: "C / C++ Programming", shortCode: "CPP", description: "Strengthen programming logic and problem-solving through C and C++ fundamentals.", duration: "4 months", fees: "₹20,000", category: "Programming", status: "Inactive", featured: false, image: "/images/courses/c-cpp.jpg", highlights: ["Programming logic", "Data structures basics", "Console-based projects"], eligibility: "10+2 pass or equivalent", curriculum: ["C programming", "Pointers and structures", "C++ object-oriented concepts", "Problem-solving projects"] },
+export const courseCategories = [
+  "Office Applications",
+  "Computer Fundamentals",
+  "Programming",
+  "Web Development",
+  "App Development",
+  "Design",
+  "Accounting",
+  "Digital Marketing",
+  "Data & Analytics",
+  "Hardware & Networking",
+  "Cyber Security",
+  "Spoken English",
+  "Personality Development",
+  "Typing",
+  "Government & Competitive Skills",
 ];
 
-export function getCourseById(id) {
-  return demoCourses.find((course) => course.id === id);
-}
+export const courseStatuses = ["Active", "Inactive"];
+
