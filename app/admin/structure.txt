@@ -1,0 +1,81 @@
+Folder PATH listing for volume New Volume
+Volume serial number is 2495-9FB2
+D:.
++---(auth)
+|   +---login
+|   |       Login.module.css
+|   |       page.js
+|   |       
+|   \---register
+|           page.js
+|           Register.module.css
+|           
+\---(dashboard)
+    |   layout.js
+    |   
+    +---certificates
+    |   |   page.js
+    |   |   
+    |   +---new
+    |   |       page.js
+    |   |       
+    |   \---[id]
+    |       |   page.js
+    |       |   
+    |       \---edit
+    |               page.js
+    |               
+    +---courses
+    |   |   page.js
+    |   |   
+    |   +---new
+    |   |       page.js
+    |   |       
+    |   \---[id]
+    |       |   page.js
+    |       |   
+    |       \---edit
+    |               page.js
+    |               
+    +---dashboard
+    |       page.js
+    |       
+    +---exams
+    |   |   page.js
+    |   |   
+    |   +---new
+    |   |       page.js
+    |   |       
+    |   \---[id]
+    |       |   page.js
+    |       |   
+    |       +---edit
+    |       |       page.js
+    |       |       
+    |       +---questions
+    |       |   |   page.js
+    |       |   |   
+    |       |   \---new
+    |       |           page.js
+    |       |           
+    |       \---results
+    |           |   page.js
+    |           |   
+    |           \---[attemptId]
+    |                   page.js
+    |                   
+    \---students
+        |   page.js
+        |   
+        +---add
+        |       page.js
+        |       
+        +---new
+        |       page.js
+        |       
+        \---[id]
+            |   page.js
+            |   
+            \---edit
+                    page.js
+                    

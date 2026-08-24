@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   BadgeCheck,
   BookOpen,
+  ClipboardCheck,
   LayoutDashboard,
   LogOut,
   Users,
@@ -30,6 +31,11 @@ const primaryLinks = [
     href: "/admin/courses",
     icon: BookOpen,
   },
+  {
+  label: "Exams",
+  href: "/admin/exams",
+  icon: ClipboardCheck,
+},
   {
     label: "Certificates",
     href: "/admin/certificates",

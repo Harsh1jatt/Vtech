@@ -1,0 +1,310 @@
+.page {
+  width: min(100%, var(--container-width));
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.loading {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted-foreground);
+  font-size: 14px;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-muted-foreground);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.backLink:hover {
+  color: var(--color-primary-dark);
+}
+
+.actions {
+  display: flex;
+  gap: 9px;
+}
+
+.primaryButton,
+.secondaryButton {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 15px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.primaryButton {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.secondaryButton {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-foreground);
+}
+
+.primaryButton:hover {
+  background: var(--color-primary-dark);
+}
+
+.secondaryButton:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.hero {
+  padding: 30px;
+  margin-bottom: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(34, 197, 94, 0.1),
+      transparent 38%
+    ),
+    var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-primary-dark);
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.hero h1 {
+  font-size: clamp(26px, 4vw, 36px);
+}
+
+.hero p {
+  max-width: 650px;
+  margin-top: 7px;
+  color: var(--color-muted-foreground);
+  font-size: 13px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 17px;
+}
+
+.meta > span:first-child {
+  padding: 6px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-muted);
+  color: var(--color-foreground);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status {
+  padding: 6px 10px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.published {
+  background: var(--color-surface-soft);
+  color: var(--color-primary-dark);
+}
+
+.draft {
+  background: var(--color-surface-muted);
+  color: var(--color-muted-foreground);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.statCard {
+  padding: 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.statCard svg {
+  color: var(--color-primary-dark);
+  margin-bottom: 12px;
+}
+
+.statCard span {
+  display: block;
+  color: var(--color-muted-foreground);
+  font-size: 11px;
+}
+
+.statCard strong {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-display);
+  font-size: 23px;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.card {
+  padding: 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.cardHeader {
+  margin-bottom: 18px;
+}
+
+.cardHeader h2 {
+  font-size: 18px;
+}
+
+.cardHeader p {
+  margin-top: 3px;
+  color: var(--color-muted-foreground);
+  font-size: 12px;
+}
+
+.settingsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.settingsList > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.settingsList > div:last-child {
+  border-bottom: 0;
+}
+
+.settingsList span {
+  color: var(--color-muted-foreground);
+  font-size: 12px;
+}
+
+.settingsList strong {
+  font-size: 12px;
+}
+
+.quickActions {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.quickActions a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-primary-dark);
+}
+
+.quickActions a:hover {
+  background: var(--color-surface-soft);
+  border-color: var(--color-primary-light);
+}
+
+.quickActions span {
+  display: flex;
+  flex-direction: column;
+}
+
+.quickActions strong {
+  color: var(--color-foreground);
+  font-size: 12px;
+}
+
+.quickActions small {
+  margin-top: 3px;
+  color: var(--color-muted-foreground);
+  font-size: 10px;
+}
+
+@media (max-width: 850px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .topBar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    flex: 1;
+  }
+
+  .hero {
+    padding: 22px 18px;
+  }
+
+  .card {
+    padding: 19px 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}

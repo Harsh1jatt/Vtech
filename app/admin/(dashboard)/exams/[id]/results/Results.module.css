@@ -1,0 +1,260 @@
+.page {
+  width: min(100%, var(--container-width));
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.header {
+  margin-bottom: 22px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 17px;
+  color: var(--color-muted-foreground);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 7px;
+  color: var(--color-primary-dark);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.header h1 {
+  font-size: clamp(27px, 4vw, 36px);
+}
+
+.header p {
+  margin-top: 6px;
+  color: var(--color-muted-foreground);
+  font-size: 13px;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.summaryCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 17px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.summaryCard > svg {
+  width: 39px;
+  height: 39px;
+  padding: 10px;
+  border-radius: 11px;
+  background: var(--color-surface-soft);
+  color: var(--color-primary-dark);
+}
+
+.summaryCard span {
+  display: block;
+  color: var(--color-muted-foreground);
+  font-size: 10px;
+}
+
+.summaryCard strong {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-display);
+  font-size: 22px;
+}
+
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 17px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.searchBox {
+  width: min(100%, 420px);
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  color: var(--color-muted-foreground);
+}
+
+.searchBox input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-foreground);
+  font-size: 12px;
+}
+
+.filter {
+  height: 42px;
+  min-width: 135px;
+  padding: 0 11px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  outline: none;
+  font-size: 12px;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 950px;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 13px 15px;
+  background: var(--color-surface-muted);
+  color: var(--color-muted-foreground);
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.table td {
+  padding: 15px;
+  border-top: 1px solid var(--color-border);
+  font-size: 12px;
+}
+
+.studentName {
+  display: block;
+  font-size: 12px;
+}
+
+.rollNumber {
+  display: block;
+  margin-top: 3px;
+  color: var(--color-muted-foreground);
+  font-size: 10px;
+}
+
+.correct {
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+.wrong {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.skipped {
+  color: #ca8a04;
+  font-weight: 700;
+}
+
+.time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-muted-foreground);
+}
+
+.result {
+  display: inline-flex;
+  padding: 5px 9px;
+  border-radius: var(--radius-full);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.pass {
+  background: var(--color-surface-soft);
+  color: var(--color-primary-dark);
+}
+
+.fail {
+  background: #fff5f5;
+  color: #b91c1c;
+}
+
+.viewButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-foreground);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.viewButton:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  background: var(--color-surface-soft);
+}
+
+.empty {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: var(--color-muted-foreground);
+  text-align: center;
+}
+
+.empty h3 {
+  color: var(--color-foreground);
+  font-size: 16px;
+}
+
+.empty p {
+  font-size: 12px;
+}
+
+@media (max-width: 650px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar {
+    flex-direction: column;
+  }
+
+  .searchBox,
+  .filter {
+    width: 100%;
+  }
+}
