@@ -74,7 +74,7 @@ export default function Hero() {
           <div className={styles.heroRight}>
             <div className={styles.heroVisual}>
               <Image
-                src="/images/hero-imag.jpeg"
+                src="/images/Hero.jpeg"
                 alt="Students practicing at computer workstations in the VTech lab"
                 fill
                 priority

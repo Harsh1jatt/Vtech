@@ -258,7 +258,7 @@ export default function AboutPage() {
             <Reveal className={styles.heroVisual} delay={140}>
               <div className={styles.heroImageFrame}>
                 <Image
-                  src="/images/hero-imag.jpeg"
+                  src="/images/Hero.jpeg"
                   alt="Students learning in the VTech classroom"
                   fill
                   priority
